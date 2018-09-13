@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="title" content="Ricardo Piuco | Bioinformatics and Web Developer" />
+    <meta name="description" content="" />
+    <meta name="author" content="Ricardo Piuco" />   
+    <meta name="url" content="https://rpiuco.github.io/" />  
+    <meta name="language" content="en" /> 
+    <meta name="robots" content="index,follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+ 
+    <link rel="stylesheet" href="structure/css/normalize.css">
+    <link rel="stylesheet" href="structure/css/grid_full.css">
+    <link rel="stylesheet" href="structure/css/sir-fonticon_full.css">
+    <link rel="stylesheet" href="structure/css/rpiuco.css">
+
+    <script src="structure/javascript/modernizr-2.8.3.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv-printshiv.googlecode.com/svn/trunk/html5shiv-printshiv.js"></script>
+    <![endif]-->
+  
+    <title>piRNAdb - suplementary files</title>
+</head>
+<body>
+	<main>
+		<section class="row">
+			<div class="sir-container">
+			<div class="sir-col-bg-24">
+				<h1>piRNAdb Supplementary Methods</h1>
+				<b>Data Sources</b>
+				<p>We colleted RNA sequences from the NCBI Nucleotide database for the <i>H. sapiens</i>, M. musculus, R. norvegicus, C. griseus and C. elegans, but only those sequences classified as as a piRNA. Additionally, for humans we got sequences from supplementary results of 5 published papers. Finally, the D. melanogaster sequences were download from ENA database, following the same criteria used for other species.<br><br>
+				We also look for piRNA data on RNACentral and RNAdb databases. We did that to compare the sequence bases and accession codes from each piRNA stored on different databases, and after that we had a listo f piRNA sequences and their access codes on each database that we used to collect these RNAs. This results was used on the preparation of the cross codes feature, more details below.<br><br>
+				Reference genome sequences of Homo sapiens (hg19, hg38), Mus musculus (mm10), Rattus norvegicus (rn6), Drosophila melanogaster (dm6) and Caenorhabditis elegans (ce11) were obtained from UCSC genome Browser (http://hgdownload.cse.ucsc.edu). For the C. griseus specie we do not found a oficial genome file, so at this step we continued only with the other 5 species. Coordinates from the organism genes were downloaded from EMSEMBL database (XXX). We also collected data from gene ontology terms for each organism genes from GO database (XXX), this information is available at the ontology term feature on the piRNA specific page.
+				</p>
+				<b>Procedures</b>
+				<p>On each species, we merged the datasets and removed the sequences found duplicated, after thsi filtering step, these sequences were aligned to the genome using the software BWA(XXX). At this step, we do no allow mismatches nor gaps. piRNA sequences that do not had any alignment to its genome were removed from the database. All the alignment positions were stored on database and displayed at the piRNA page.<br><br>
+				Then we used this alignment data to find any gene or transposable element that is located at the same position and strand of alignment. This information is available at the alignment tab on the piRNA page.<br><br>
+				We then associate the gene ontology terms to the genes that were found at the last step. All these information are stored and provided to the users at the piRNA page.
+				</p>
+				<b>piRNA expression</b>
+				<p>For humans, we colleted data from microRNA sequencing (miRNA-seq) from 4 tissues (BRCA, COAD, PRAD and PAAD) available at The Cancer Genome Atlas (TCGA,  https://portal.gdc.cancer.gov/). At this time, we separated the samples between control and tumor and begin the analysis. First step was to get all sequences from a .bam file do a fastq file. Then we aligned the short sequences to the human genome hg38 and use these aligned files as a parameter to the software intersectBed from Bedtools(XXX). We also provided a file containing and piRNAs of piRNAdb and the software associated each read from the aligned sequences to the piRNAdb sequences. The final result was the raw count for every piRNA found at the control and tumor samples.<br><br>
+				We then eu this count file to use into the edgeR package (XXX) from R software to get the TMM values. This TMM normalization method is already cited to be the best to use on short RNA sequeneces, like piRNAs and miRNAs, it is done using the size of library and the raw counts to make the samples with more coverage comparable to those with less coverage.<br><br>
+				Data from raw Counts and TMM values are available at the piRNA page on expression section. To change from one type to another just click at the buttom for the name.<br><br>
+				We done this expression evaluation step to other 5 species that we have at our database, the methodology was almost the same. The major changes are the version of the genome that we used to align the sequences, each organismo have its own genome version, and the source of sequeneces. We got datasets on the SRA database (http://www.ncbi.nlm.nih.gov/sra), for example rat had one good dataset with around XXX samples from XXX tissues, however we get data from XXX tissues (XXX) and did the analysis to only this subset. For the other species we tried to find a dataset that had more than one tissue, but we did not find it, so we need to get more than one dataset to study the expression profile. For mice XXXX
+				</p>
+				<b>CrossCodes</b>
+				<p>We got all piRNA sequences and access codes from other databases, like NCBI, RNACentral and piRNABank and merged them based on the sequences bases. After this step, we provide this information on two section, first at the piRNA lais abox on the piRNA information and the second at the cross codes section. THis feature provides the user a form top lace all their piRNA accession codes from other databases and after some data process the result a listo f piRNA code that we use on piRNAdb.</p>
+			</div>
+			</div>
+		</section>
+		<section class="row">
+			<div class="sir-container">
+			<div class="sir-col-bg-24">
+				<h1>piRNAdb Supplementary Images</h1>
+				<figure><img src="anexo_images/result1.1.hg.image.hg.fw.png" /></figure>
+				<figurecaption>Figure 1.1A. Amount of alignments on Homo sapiens genome. Data separated by chromosome and build code.</figurecaption>
+				
+				<figure><img src="anexo_images/result1.1.mm.image.fw.png" /></figure>
+				<figurecaption>Figure 1.1C. Alignments on Mus musculus genome. Data separated by chromosome and build code.</figurecaption>
+				
+				<figure><img src="anexo_images/result1.1.rn.image.fw.png" /></figure>
+				<figurecaption>Figure 1.1E. Alignments on Rattus norvegicus genome. Data separated by chromosome and build code.</figurecaption>
+				
+				<figure><img src="anexo_images/result1.1.dm.image.fw.png" /></figure>
+				<figurecaption>Figure 1.1G. Alignments on Drosphila melanogaster genome. Data separated by chromosome and build code.</figurecaption>
+				
+				<figure><img src="anexo_images/result1.1.ce.image.fw.png" /></figure>
+				<figurecaption>Figure 1.1I. Alignments on Caenorhabditis elegans genome. Data separated by chromosome and build code.</figurecaption>
+				
+				<figure><img src="anexo_images/result1.2.image.fw.png" /></figure>
+				<figurecaption>Figure 1.2. Alignment of all species separated in foward and reverse strand.</figurecaption>
+				
+				<figure><img src="anexo_images/result2.image.fw.png" /></figure>
+				<figurecaption>Figure 2. Each piRNA sequence on piRNAdb was associated with its alignment position, then it was separated by groups of piRNAs with a unique alignment, two alignments, ten alignments, more than 50 alignment and more than 10000 alignments. Data shows a percentage of piRNAs that is contained on each category.</figurecaption>
+				
+				<figure><img src="anexo_images/result3.1.image.hg.fw.png" /></figure>
+				<figurecaption>Figure 3.1A. Gene coordinates file (ENSEMBL GFF3) was scanned to find Homo sapiens (only hg38) piRNA alignments that overlap into genes. Pie chart displays each gene biotype that have at least one alignment overlapping.</figurecaption>
+				
+				<figure><img src="anexo_images/result3.1.image.mm.fw.png" /></figure>
+				<figurecaption>Figure 3.1B. Gene coordinates file (ENSEMBL GFF3) was scanned to find Mus musculus (mm10) piRNA alignments that overlap into genes. Pie chart displays each gene biotype that have at least one alignment overlapping.</figurecaption>
+				
+				<figure><img src="anexo_images/result3.1.image.rn.fw.png" /></figure>
+				<figurecaption>Figure 3.1C. Gene coordinates file (ENSEMBL GFF3) was scanned to find Rattus norvegicus (rn6) piRNA alignments that overlap into genes. Pie chart displays each gene biotype that have at least one alignment overlapping.</figurecaption>
+				
+				<figure><img src="anexo_images/result3.1.image.ce.fw.png" /></figure>
+				<figurecaption>Figure 3.1D. Gene coordinates file (ENSEMBL GFF3) was scanned to find Caenorhabditis elegans (ce11) piRNA alignments that overlap into genes. Pie chart displays each gene biotype that have at least one alignment overlapping.</figurecaption>
+				
+				<figure><img src="anexo_images/result3.1.image.dm.fw.png" /></figure>
+				<figurecaption>Figure 3.1E. Gene coordinates file (ENSEMBL GFF3) was scanned to find Drosophila melanogaster (dm6) piRNA alignments that overlap into genes. Pie chart displays each gene biotype that have at least one alignment overlapping.</figurecaption>
+				
+				
+				<figure><img src="anexo_images/result3.2.image.hg.fw.png" /></figure>
+				<figurecaption>Figure 3.2A Bar plot displays the amount of Homo sapiens piRNA alignments that aligned over genes. Only top 50 genes are available.</figurecaption>
+				
+				<figure><img src="anexo_images/result3.2.image.mm.fw.png" /></figure>
+				<figurecaption>Figure 3.2B Bar plot displays the amount of Mus musculus piRNA alignments that aligned over genes. Only top 50 genes are available.</figurecaption>
+				
+				<figure><img src="anexo_images/result3.2.image.rn.fw.png" /></figure>
+				<figurecaption>Figure 3.2C Bar plot displays the amount of Rattus norvegicus piRNA alignments that aligned over genes. Only top 50 genes are available.</figurecaption>
+				
+				<figure><img src="anexo_images/result3.2.image.ce.fw.png" /></figure>
+				<figurecaption>Figure 3.2D Bar plot displays the amount of C. elegans piRNA alignments that aligned over genes. Only top 50 genes are available.</figurecaption>
+				
+				<figure><img src="anexo_images/result3.2.image.dm.fw.png" /></figure>
+				<figurecaption>Figure 3.2E Bar plot displays the amount of D. melanogaster piRNA alignments that aligned over genes. Only top 50 genes are available.</figurecaption>
+				
+				
+				<figure><img src="anexo_images/result5.1.image.hg.fw.png" /></figure>
+				<figurecaption>Figure 5.1A Bar plot displaying the amount of H. sapiens piRNAs stored in piRNAdb separated by RNA length.</figurecaption>
+				
+				<figure><img src="anexo_images/result5.1.image.mm.fw.png" /></figure>
+				<figurecaption>Figure 5.1B Bar plot displaying the amount of M. musculus piRNAs stored in piRNAdb separated by RNA length.</figurecaption>
+				
+				<figure><img src="anexo_images/result5.1.image.rn.fw.png" /></figure>
+				<figurecaption>Figure 5.1C Bar plot displaying the amount of R. norvegicus piRNAs stored in piRNAdb separated by RNA length.</figurecaption>
+				
+				<figure><img src="anexo_images/result5.1.image.dm.fw.png" /></figure>
+				<figurecaption>Figure 5.1D Bar plot displaying the amount of D. melanogaster piRNAs stored in piRNAdb separated by RNA length.</figurecaption>
+				
+				<figure><img src="anexo_images/result5.1.image.cg.fw.png" /></figure>
+				<figurecaption>Figure 5.1E Bar plot displaying the amount of C. griseus piRNAs stored in piRNAdb separated by RNA length.</figurecaption>
+				
+				<figure><img src="anexo_images/result5.3.image.pirnadb.fw.png" /></figure>
+				<figurecaption>Figure 5.3A Proportion of piRNAs sequences by each organism stored on piRNAdb.</figurecaption>
+				
+				
+				<figure><img src="anexo_images/result7.table.expression.fw.png" /></figure>
+				<figurecaption>Table 1A. Amount of samples from each category that were used to explore the piRNA expression data.</figurecaption>
+				
+				<figure><img src="anexo_images/result7.table.tcga.fw.png" /></figure>
+				<figurecaption>Table 1B. Amount of samples from each tumor sample from TCGA that were used to explore te piRNA expression data. Exclusive to human. Samples from specific stages were merged to form the category Tumor. CTRL means control.</figurecaption>
+				
+				<figure><img src="anexo_images/result7.table.tcga.fw.png" /></figure>
+				<figurecaption>Table 1C. List of datasets that were used to find and explore piRNA sequences to store on piRNAdb.</figurecaption>
+				
+				
+				<figure><img src="anexo_images/result11.1.image.fw.png" /></figure>
+				<figurecaption>Figure 11.1 Proportion of piRNA alignments overlapping transposable elements (TE) categorized by TE family.</figurecaption>
+				
+				<figure><img src="anexo_images/result11.2.image.fw.png" /></figure>
+				<figurecaption>Figure 11.2 Proportion of piRNA alignments overlapping transposable elements (TE) categorized by TE Class.</figurecaption>
+
+				
+				
+				
+				
+				
+				
+			</div>
+			</div>
+		</section>
+</body>
+</html>
