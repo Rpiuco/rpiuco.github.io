@@ -30,23 +30,23 @@
 			<div class="sir-col-bg-24">
 				<h1>piRNAdb Supplementary Methods</h1>
 				<b>Data Sources</b>
-				<p>We colleted RNA sequences from the NCBI Nucleotide database for the <i>H. sapiens</i>, M. musculus, R. norvegicus, C. griseus and C. elegans, but only those sequences classified as as a piRNA. Additionally, for humans we got sequences from supplementary results of 5 published papers. Finally, the D. melanogaster sequences were download from ENA database, following the same criteria used for other species.<br><br>
-				We also look for piRNA data on RNACentral and RNAdb databases. We did that to compare the sequence bases and accession codes from each piRNA stored on different databases, and after that we had a listo f piRNA sequences and their access codes on each database that we used to collect these RNAs. This results was used on the preparation of the cross codes feature, more details below.<br><br>
-				Reference genome sequences of Homo sapiens (hg19, hg38), Mus musculus (mm10), Rattus norvegicus (rn6), Drosophila melanogaster (dm6) and Caenorhabditis elegans (ce11) were obtained from UCSC genome Browser (http://hgdownload.cse.ucsc.edu). For the C. griseus specie we do not found a oficial genome file, so at this step we continued only with the other 5 species. Coordinates from the organism genes were downloaded from EMSEMBL database (XXX). We also collected data from gene ontology terms for each organism genes from GO database (XXX), this information is available at the ontology term feature on the piRNA specific page.
+				<p>We colleted RNA sequences from the NCBI Nucleotide database for the <i>H. sapiens</i>, <i>M. musculus</i>, <i>R. norvegicus</i>, <i>C. griseus</i> and <i>C. elegans</i>, but only those sequences classified as piRNA. Additionally, for humans we got sequences from supplementary results of 5 published papers. Finally, the <i>D. melanogaster</i> sequences were download from ENA database, following the same criteria used for other species.<br><br>
+				We also look for piRNA data on RNACentral, RNAdb databases and other piRNA databases. We did that to compare the sequence bases and accession codes from each piRNA stored on different databases. This results were used on the preparation of the cross codes feature, more details below.<br><br>
+				Reference genome sequences of <i>H. sapiens</i> (hg19, hg38), <i>M. musculus</i> (mm10), <i>R. norvegicus</i> (rn6), <i>D. melanogaster</i> (dm6) and <i>C. elegans</i> (ce11) were obtained from UCSC genome Browser (http://hgdownload.cse.ucsc.edu). For the <i>C. griseus</i> specie we do not found an oficial genome file, so at this step we continued the downstream analysis with the other 5 species. Coordinates from the organism genes were downloaded from EMSEMBL database. We also collected data from gene ontology terms for each organism genes from GO database, this information is available at the ontology term feature on the piRNA specific page.
 				</p>
 				<b>Procedures</b>
-				<p>On each species, we merged the datasets and removed the sequences found duplicated, after thsi filtering step, these sequences were aligned to the genome using the software BWA(XXX). At this step, we do no allow mismatches nor gaps. piRNA sequences that do not had any alignment to its genome were removed from the database. All the alignment positions were stored on database and displayed at the piRNA page.<br><br>
-				Then we used this alignment data to find any gene or transposable element that is located at the same position and strand of alignment. This information is available at the alignment tab on the piRNA page.<br><br>
+				<p>On each species, we merged the datasets and removed duplicated sequences, after this filter the sequences were aligned to the genome using the software BWA. At this step, we do no allow mismatches nor gaps. piRNA sequences that do not had any alignment to its genome were removed from the database. All the alignment positions were stored on database and displayed at the piRNA page.<br><br>
+				Then we used this alignment data to find any gene or transposable element that is located at the same position and strand of the alignment. This information is available at the alignment tab on the piRNA page.<br><br>
 				We then associate the gene ontology terms to the genes that were found at the last step. All these information are stored and provided to the users at the piRNA page.
 				</p>
 				<b>piRNA expression</b>
-				<p>For humans, we colleted data from microRNA sequencing (miRNA-seq) from 4 tissues (BRCA, COAD, PRAD and PAAD) available at The Cancer Genome Atlas (TCGA,  https://portal.gdc.cancer.gov/). At this time, we separated the samples between control and tumor and begin the analysis. First step was to get all sequences from a .bam file do a fastq file. Then we aligned the short sequences to the human genome hg38 and use these aligned files as a parameter to the software intersectBed from Bedtools(XXX). We also provided a file containing and piRNAs of piRNAdb and the software associated each read from the aligned sequences to the piRNAdb sequences. The final result was the raw count for every piRNA found at the control and tumor samples.<br><br>
-				We then eu this count file to use into the edgeR package (XXX) from R software to get the TMM values. This TMM normalization method is already cited to be the best to use on short RNA sequeneces, like piRNAs and miRNAs, it is done using the size of library and the raw counts to make the samples with more coverage comparable to those with less coverage.<br><br>
-				Data from raw Counts and TMM values are available at the piRNA page on expression section. To change from one type to another just click at the buttom for the name.<br><br>
-				We done this expression evaluation step to other 5 species that we have at our database, the methodology was almost the same. The major changes are the version of the genome that we used to align the sequences, each organismo have its own genome version, and the source of sequeneces. We got datasets on the SRA database (http://www.ncbi.nlm.nih.gov/sra), for example rat had one good dataset with around XXX samples from XXX tissues, however we get data from XXX tissues (XXX) and did the analysis to only this subset. For the other species we tried to find a dataset that had more than one tissue, but we did not find it, so we need to get more than one dataset to study the expression profile. For mice XXXX
+				<p>For humans, we colleted data from microRNA sequencing (miRNA-seq) from 4 tissues (BRCA, COAD, PRAD and PAAD) available at The Cancer Genome Atlas (TCGA,  https://portal.gdc.cancer.gov/). At this time, we separated the samples between control and tumor and begin the analysis. First step was to get all sequences from a .bam file to a fastq file. Then we aligned the short sequences to the human genome hg38 and use these aligned files as a parameter to the software intersectBed from Bedtools. We also provided a file containing the piRNA alignment coordinates of piRNAdb and the software associated each read from the aligned sequences to the piRNAdb sequences. The final result was the raw count for every piRNA found at the control and tumor samples.<br><br>
+				The piRNA raw count file were loaded into the edgeR package of R software to get the TMM values. This TMM normalization method is already cited to be the best to use on short RNA sequeneces, like piRNAs and miRNAs, it is done using the size of library and the raw counts to make samples with more coverage comparable to those with less coverage.<br><br>
+				Data from raw Counts and TMM values will be available in some days at the piRNA page on expression section.<br><br>
+				We done this expression evaluation step to other 5 species that we have at our database, the methodology was almost the same. The major differences are the version of the genome that we used to align the sequences, each organism have its own genome version, and the source of smallRNA dataset was the SRA database (http://www.ncbi.nlm.nih.gov/sra).
 				</p>
 				<b>CrossCodes</b>
-				<p>We got all piRNA sequences and access codes from other databases, like NCBI, RNACentral and piRNABank and merged them based on the sequences bases. After this step, we provide this information on two section, first at the piRNA lais abox on the piRNA information and the second at the cross codes section. THis feature provides the user a form top lace all their piRNA accession codes from other databases and after some data process the result a listo f piRNA code that we use on piRNAdb.</p>
+				<p>We got all piRNA sequences and access codes from other databases, like NCBI, RNACentral and piRNABank and merged them based on the sequences bases. After this step, we provide this information on two section, first at the piRNA alias box on the piRNA information and the second at the cross codes section. This feature provides the user a form to place all their piRNA accession codes from other databases and after some data processing, the result is a list of piRNA code that we use on piRNAdb.</p>
 			</div>
 			</div>
 		</section>
@@ -143,13 +143,9 @@
 				<figurecaption>Figure 11.2 Proportion of piRNA alignments overlapping transposable elements (TE) categorized by TE Class.</figurecaption>
 
 				
-				
-				
-				
-				
-				
 			</div>
 			</div>
 		</section>
+		</main>
 </body>
 </html>
